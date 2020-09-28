@@ -18,3 +18,13 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+class Comment(models.Model):
+    """ブログのコメント"""
+    name = models.CharField('名前', max_length=30, default='名無し')
+    text = models.TextField('本文')
+    post = models.ForeignKey(Post, verbose_name='紐づく記事', on_delete=models.PROTECT)
+    creat_at = models.DateTimeField('作成日', default=timezone.now)
+
+    def __str__(self):
+        return self.text[:10] #10文字目までを表示
